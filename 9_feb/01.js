@@ -1,77 +1,58 @@
-// Book Object
-function Book(id, title, author) {
-    return {
-      id: id,
-      title: title,
-      author: author,
-      isBorrowed: false
-    };
+const displaybooks = document.querySelector("#books_available");
+
+const searchBook = document.querySelector("#search_book");
+
+let library = [];
+const books = [
+  {
+    id: 1,
+    bookName: "Wings of Fire",
+    bookAuthor: "APJ Abdul Kalam",
+    isAlloted: false,
+  },
+  {
+    id: 2,
+    bookName: "To Kill a Mockingbird",
+    bookAuthor: "Harper Lee",
+    isAlloted: true,
+  },
+  {
+    id: 3,
+    bookName: "The Great Gatsby",
+    bookAuthor: "F. Scott Fitzgerald",
+    isAlloted: false,
+  },
+  // Add more books as needed
+];
+
+/* library = library.concat(books);  this method uses concat methods */
+/*library = [...library, ...books];  this method uses spread operator*/
+library = [...library, ...books];
+
+displaybooks.addEventListener("click", function () {
+  const outputElement =
+    document.getElementById("output"); /* this is our output block */
+  let availableBooks = "";
+  library.forEach((e) => {
+    availableBooks += `${e.bookName} by ${e.bookAuthor}\n`;
+  });
+  outputElement.textContent = availableBooks;
+});
+
+// search book
+
+searchBook.addEventListener("click", function () {
+  const input = document.querySelector("#searchInput");
+  const outputElement = document.getElementById("output");
+  const searchTerm = input.value.toLowerCase();
+
+  const foundBook = library.find(
+    (e) => e.bookName.toLowerCase() === searchTerm
+  );
+  if (foundBook) {
+    outputElement.textContent = `Book found: ${foundBook.bookName} by ${foundBook.bookAuthor}`;
+  } else {
+    // Display a message if the book is not found
+    outputElement.textContent = "Book not found.";
   }
-  
-  // Library Array
-  let library = [];
-  
-  // Adding Books
-  function addBook(id, title, author) {
-    const newBook = Book(id, title, author);
-    library.push(newBook);
-  }
-  
-  // Dummy Books
-  addBook(1, "The Great Gatsby", "F. Scott Fitzgerald");
-  addBook(2, "To Kill a Mockingbird", "Harper Lee");
-  addBook(3, "1984", "George Orwell");
-  addBook(4, "The Catcher in the Rye", "J.D. Salinger");
-  addBook(5, "The Hobbit", "J.R.R. Tolkien");
-  
-  // Borrowing Books
-  function borrowBook(id) {
-    const book = library.find(book => book.id === id);
-    if (book) {
-      if (!book.isBorrowed) {
-        book.isBorrowed = true;
-        return `${book.title} by ${book.author} has been borrowed.`;
-      } else {
-        return `${book.title} by ${book.author} is already borrowed.`;
-      }
-    } else {
-      return `Book with ID ${id} not found.`;
-    }
-  }
-  
-  // List Available Books
-  function listAvailableBooks() {
-    let availableBooks = "Available Books:\n";
-    library.forEach(book => {
-      if (!book.isBorrowed) {
-        availableBooks += `${book.title} by ${book.author}\n`;
-      }
-    });
-    return availableBooks.trim();
-  }
-  
-  // Search for a Book
-  function searchBook(title) {
-    const foundBook = library.find(book => book.title.toLowerCase() === title.toLowerCase());
-    return foundBook || null;
-  }
-  
-  // Display Available Books
-  function displayAvailableBooks() {
-    const outputElement = document.getElementById("output");
-    const availableBooks = listAvailableBooks();
-    outputElement.textContent = availableBooks;
-  }
-  
-  // Search and Display Book
-  function searchAndDisplayBook() {
-    const outputElement = document.getElementById("output");
-    const searchInput = document.getElementById("searchInput").value;
-    const foundBook = searchBook(searchInput);
-    if (foundBook) {
-      outputElement.textContent = `Book found: ${foundBook.title} by ${foundBook.author}`;
-    } else {
-      outputElement.textContent = "Book not found.";
-    }
-  }
-  
+});
