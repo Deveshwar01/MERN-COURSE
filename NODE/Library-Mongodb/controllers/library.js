@@ -1,12 +1,14 @@
 import { Library } from "../models/library.js";
 
 
+//  Here i am implementing CURD operations like addbook ,Updatebook,removebook and findbook
 export const addBook = async (req, res) => {
-    const { id, bookName, authorName } = req.body;
+    const { id, bookName, authorName ,isBorrowed } = req.body;
     await Library.create({
         id,
         bookName,
         authorName,
+        isBorrowed
     })
     res.status(201).json({
         success: true,
@@ -14,13 +16,14 @@ export const addBook = async (req, res) => {
     })
 
 }
+
 export const updateBook = async (req, res) => {
     const bookId = req.params.id;
     const { bookName, authorName } = req.body;
     const updatedBook = await Library.findOneAndUpdate(
         { id: bookId },
         { $set: { bookName, authorName } },
-        { new: true } // Return the updated document
+        { new: true }
     );
 
     if (updatedBook) {
@@ -37,6 +40,7 @@ export const updateBook = async (req, res) => {
     }
 
 };
+
 export const removeBook = async (req, res) => {
     const bookId = req.params.id;
 
@@ -55,6 +59,7 @@ export const removeBook = async (req, res) => {
     }
 
 }
+
 export const findBook = async (req, res) => {
     const userId = req.params.id;
     try {
@@ -63,9 +68,6 @@ export const findBook = async (req, res) => {
             success: true,
             message: "book find sucessfully"
         })
-
-
-
     } catch (error) {
         res.status(404).json({
             success: false,

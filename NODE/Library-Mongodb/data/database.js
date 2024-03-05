@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+
+// mongodb connection   
 export const connectDB = () => {
     mongoose
         .connect("mongodb://localhost:27017", {
