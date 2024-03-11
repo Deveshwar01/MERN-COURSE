@@ -84,13 +84,13 @@ class SavingAccount extends BankAccount {
 
 // Example Usage:
 const regularAccount = new BankAccount("123456789", "John Doe", 1000);
-regularAccount.deposit(10000);
+regularAccount.deposit(500);
 regularAccount.withdraw(200);
 regularAccount.displayBalance();
 
 const savingsAccount = new SavingAccount("987654321", "Jane Doe", 2000, 2, 100);
-savingsAccount.deposit(20000);
+savingsAccount.deposit(1000);
 savingsAccount.addInterest();
 savingsAccount.withdraw(150);
-savingsAccount.withdraw(120);
+savingsAccount.withdraw(120); // This withdrawal exceeds the limit and incurs a penalty fee
 savingsAccount.displayBalance();
