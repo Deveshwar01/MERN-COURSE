@@ -143,20 +143,18 @@ async function deleteBook(id) {
 //  function to update book
 async function updateBook(id) {
     try {
-        const bookName = document.getElementById('title').value;
-        const authorName = document.getElementById('author').value;
+
+        const bookName = prompt("Enter updated book name:");
+        const authorName = prompt("Enter updated author name:");
 
         const response = await fetch(`http://localhost:4000/api/update/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id, bookName, authorName }),
+            body: JSON.stringify({ bookName, authorName }),
 
         })
-        document.getElementById('id').value = '';
-        document.getElementById('title').value = '';
-        document.getElementById('author').value = '';
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
