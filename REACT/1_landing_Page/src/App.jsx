@@ -7,9 +7,10 @@ const App = () => {
   return (
     <>
       <Header />
+      <Card />
       <MainContent />
       <Footer />
-      </>
+    </>
   );
 };
 
